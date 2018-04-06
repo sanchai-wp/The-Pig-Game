@@ -1,4 +1,4 @@
-var scores, roundScore, activePlayer, gamePlaying,lastDice;
+var scores, roundScore, activePlayer, gamePlaying, lastDice, input;
 
 init();
 
@@ -40,8 +40,18 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
         // Update the UI
         document.getElementById('score-' + activePlayer).textContent = scores[activePlayer];
 
+        input = document.querySelector('.final-score').value;
+
+        // Undefined, 0, null or "" COERCED to false
+        // Anything else is COERCED to true
+        if (input) {
+            var winningScore = input;
+        } else {
+            winningScore = 100;
+        }
+
         // Check if Player won the game
-        if (scores[activePlayer] >= 25) {
+        if (scores[activePlayer] >= winningScore) {
             document.querySelector('#name-' + activePlayer).textContent = 'Winner';
             document.querySelector('.dice').style.display = 'none';
             document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
